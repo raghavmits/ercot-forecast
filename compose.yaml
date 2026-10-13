@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: ercot
+      POSTGRES_PASSWORD: ercot
+      POSTGRES_DB: ercot
+    ports:
+      - "5432:5432"
+    volumes:
+      - ercot_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ercot -d ercot"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  ercot_postgres_data:
